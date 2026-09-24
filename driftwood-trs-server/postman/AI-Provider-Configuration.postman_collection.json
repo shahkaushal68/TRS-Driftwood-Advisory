@@ -1,0 +1,135 @@
+{
+  "info": {
+    "name": "Driftwood TRS - AI Provider Configuration",
+    "description": "Auth + AI Provider Configuration endpoints for the TRS admin panel POC.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8000/api", "type": "string" },
+    { "key": "adminEmail", "value": "admin@driftwood.com", "type": "string" },
+    { "key": "adminPassword", "value": "Admin@123", "type": "string" },
+    { "key": "configId", "value": "", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Sign In (Admin)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('signed in', function () {",
+                  "  pm.expect(pm.response.code).to.equal(200);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{adminEmail}}\",\n  \"password\": \"{{adminPassword}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/sign-in/email",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "sign-in/email"]
+            },
+            "description": "Signs in as the seeded super admin. Postman stores the session cookie automatically for subsequent requests on this domain (make sure cookies aren't disabled in Settings)."
+          }
+        }
+      ]
+    },
+    {
+      "name": "AI Provider Configurations",
+      "item": [
+        {
+          "name": "Create Configuration",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('created', function () {",
+                  "  pm.expect(pm.response.code).to.equal(201);",
+                  "});",
+                  "const body = pm.response.json();",
+                  "if (body && body.id) {",
+                  "  pm.collectionVariables.set('configId', body.id);",
+                  "}",
+                  "pm.test('never returns apiKey', function () {",
+                  "  pm.expect(body).to.not.have.property('apiKey');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"providerName\": \"OpenRouter Production\",\n  \"providerType\": \"openrouter\",\n  \"gatewayType\": \"openrouter\",\n  \"baseUrl\": \"https://openrouter.ai/api/v1\",\n  \"apiKey\": \"sk-or-v1-REPLACE_WITH_REAL_KEY\",\n  \"defaultModel\": \"openai/gpt-4o\",\n  \"environment\": \"production\",\n  \"responseFormat\": \"json\",\n  \"timeoutSeconds\": 60,\n  \"maxTokens\": 4000,\n  \"isActive\": true,\n  \"supportsMultipleModels\": false,\n  \"supportsFallback\": false\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/admin/ai-provider-configurations",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "ai-provider-configurations"]
+            },
+            "description": "Creates a new AI provider configuration. Replace apiKey with a real OpenRouter key before sending. Saves the returned id into {{configId}} for the other requests."
+          }
+        },
+        {
+          "name": "List Configurations",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/admin/ai-provider-configurations",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "ai-provider-configurations"]
+            },
+            "description": "Lists all saved configurations. apiKey is never included — only hasApiKey / apiKeyLastFour."
+          }
+        },
+        {
+          "name": "Update Configuration",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"defaultModel\": \"anthropic/claude-3.5-sonnet\",\n  \"timeoutSeconds\": 90,\n  \"maxTokens\": 8000,\n  \"isActive\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/admin/ai-provider-configurations/{{configId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "ai-provider-configurations", "{{configId}}"]
+            },
+            "description": "Updates editable fields. Omit apiKey to keep the existing stored key; include it to replace it. isActive: true deactivates every other configuration."
+          }
+        },
+        {
+          "name": "Test Connection",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/admin/ai-provider-configurations/{{configId}}/test-connection",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "ai-provider-configurations", "{{configId}}", "test-connection"]
+            },
+            "description": "Makes a real call to OpenRouter's /chat/completions using the stored key and defaultModel. Updates connectionStatus/lastConnectionTestAt/lastConnectionError on the row."
+          }
+        }
+      ]
+    }
+  ]
+}

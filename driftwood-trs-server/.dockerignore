@@ -1,0 +1,44 @@
+# Version control
+.git
+.gitignore
+.github
+.gitattributes
+.claude
+
+# Build artifacts (rebuilt inside Docker)
+node_modules
+dist
+*.tsbuildinfo
+
+# Environment files — never bake secrets into the image
+.env
+.env.*
+
+# Docker files (not needed inside the image)
+Dockerfile*
+docker-compose*
+.dockerignore
+
+# Editor / OS noise
+.vscode
+.idea
+*.sublime-workspace
+.DS_Store
+*.log
+
+# Test & coverage artifacts
+coverage
+.nyc_output
+
+# Documentation
+*.md
+docs
+
+# Temporary files
+.temp
+.tmp
+
+# Scripts not needed at runtime
+drizzle.config.ts
+eslint.config.mjs
+.prettierrc

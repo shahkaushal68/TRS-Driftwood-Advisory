@@ -1,0 +1,4 @@
+ALTER TABLE "intake_document" ADD COLUMN "previous_document_version_id" text;--> statement-breakpoint
+ALTER TABLE "intake_document" ADD COLUMN "resubmitted_document_version_id" text;--> statement-breakpoint
+ALTER TABLE "intake_document" ADD CONSTRAINT "intake_document_previous_document_version_id_intake_document_id_fk" FOREIGN KEY ("previous_document_version_id") REFERENCES "public"."intake_document"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "intake_document" ADD CONSTRAINT "intake_document_resubmitted_document_version_id_intake_document_id_fk" FOREIGN KEY ("resubmitted_document_version_id") REFERENCES "public"."intake_document"("id") ON DELETE set null ON UPDATE no action;

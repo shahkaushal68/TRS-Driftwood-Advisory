@@ -1,0 +1,49 @@
+{
+  "compilerOptions": {
+    // --- Module System ---
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "esModuleInterop": true,
+
+    // --- Target & Output ---
+    "target": "ES2025",
+    "outDir": "./dist",
+    "sourceMap": true,
+    "declaration": true,
+    "removeComments": true,
+    "incremental": true,
+
+    // --- NestJS Decorator Requirements ---
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+
+    // --- Core Strict Flag ---
+    // Enables: noImplicitAny, strictNullChecks, strictFunctionTypes,
+    // strictBindCallApply, strictPropertyInitialization, noImplicitThis,
+    // alwaysStrict, useUnknownInCatchVariables
+    "strict": true,
+
+    // --- Additional Strictness Beyond strict:true ---
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "exactOptionalPropertyTypes": true,
+    "noPropertyAccessFromIndexSignature": true,
+
+    // --- Other ---
+    "resolveJsonModule": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    // TS6 requires rootDir to be explicit when outDir is set
+    "rootDir": ".",
+
+    // Required in TypeScript 6.0 — no longer auto-discovered
+    // "jest" added for *.spec.ts globals (describe/it/expect) — tsconfig.build.json already
+    // overrides this back to ["node"] to keep jest types out of the production build.
+    "types": ["node", "jest"]
+  },
+  "include": ["src/**/*", "drizzle.config.ts"]
+}

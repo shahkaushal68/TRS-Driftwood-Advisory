@@ -1,0 +1,76 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1779945727030,
+      "tag": "0000_wet_doctor_faustus",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1784010291115,
+      "tag": "0001_modern_dexter_bennett",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1784100498875,
+      "tag": "0002_faithful_imperial_guard",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1784533486003,
+      "tag": "0003_add_prompt_template_and_version_tables",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1784533508325,
+      "tag": "0004_drop_legacy_ai_prompt_version",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1785836839977,
+      "tag": "0005_add_document_reset_columns",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1785840938524,
+      "tag": "0006_add_document_resubmission_columns",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1786344785690,
+      "tag": "0007_gigantic_wendell_vaughn",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1786362315771,
+      "tag": "0008_add_ai_review_request_response_tables",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1786613763627,
+      "tag": "0009_add_executive_report_and_master_prompt_support",
+      "breakpoints": true
+    }
+  ]
+}

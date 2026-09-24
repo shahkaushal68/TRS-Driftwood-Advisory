@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    // Exclude jest types from the production build
+    "types": ["node"],
+    // Override base rootDir so output lands at dist/main.js not dist/src/main.js
+    "rootDir": "./src",
+    // Keep tsBuildInfoFile inside dist so deleteOutDir wipes it alongside compiled output
+    "tsBuildInfoFile": "./dist/.tsbuildinfo"
+  },
+  "exclude": ["node_modules", "dist", "drizzle.config.ts", "**/*.spec.ts"]
+}

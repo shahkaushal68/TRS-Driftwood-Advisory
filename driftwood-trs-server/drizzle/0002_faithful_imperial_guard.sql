@@ -1,0 +1,2 @@
+ALTER TABLE "ai_provider_configuration" ADD COLUMN "timeout_seconds" integer DEFAULT 60 NOT NULL;--> statement-breakpoint
+ALTER TABLE "ai_provider_configuration" ADD COLUMN "max_tokens" integer DEFAULT 4000 NOT NULL;

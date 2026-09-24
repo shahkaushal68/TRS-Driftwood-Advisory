@@ -1,0 +1,1 @@
+DROP TABLE "ai_prompt_version" CASCADE;
